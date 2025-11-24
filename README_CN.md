@@ -118,11 +118,11 @@ a/d: 增加/减少角速度
 
 **运行方法**:
 ```bash
-# 方法1：直接运行
+# 方法1：直接运行（推荐）
 ros2 run turtlebot3_teleop teleop_keyboard
 
-# 方法2：使用Launch文件
-ros2 launch turtlebot3_teleop turtlebot3_teleop_key.launch.py
+# 方法2：在另一个终端中运行
+# 在终端1启动机器人硬件驱动后，在终端2执行上述命令
 ```
 
 ---
@@ -275,11 +275,11 @@ export TURTLEBOT3_MODEL=burger    # 或 waffle, waffle_pi
 
 ### 1. 键盘遥控机器人
 ```bash
-# 启动机器人基础驱动
+# 终端1：启动机器人基础驱动
 ros2 launch turtlebot3_bringup robot.launch.py
 
-# 另一个终端：启动键盘遥控
-ros2 launch turtlebot3_teleop turtlebot3_teleop_key.launch.py
+# 终端2：启动键盘遥控
+ros2 run turtlebot3_teleop teleop_keyboard
 ```
 
 ### 2. SLAM建图
@@ -287,10 +287,10 @@ ros2 launch turtlebot3_teleop turtlebot3_teleop_key.launch.py
 # 启动SLAM节点
 ros2 launch turtlebot3_cartographer cartographer.launch.py
 
-# 用遥控器或自动导航移动机器人进行建图
-ros2 launch turtlebot3_teleop turtlebot3_teleop_key.launch.py
+# 另一个终端：用遥控器移动机器人进行建图
+ros2 run turtlebot3_teleop teleop_keyboard
 
-# 保存地图
+# 第三个终端：保存地图
 ros2 run nav2_map_server map_saver_cli -f ~/map
 ```
 
@@ -306,11 +306,11 @@ ros2 launch turtlebot3_navigation2 navigation2.launch.py \
 
 ### 4. 仿真测试
 ```bash
-# 启动Gazebo仿真
+# 终端1：启动Gazebo仿真
 ros2 launch turtlebot3_gazebo empty_world.launch.py
 
-# 运行遥控或导航
-ros2 launch turtlebot3_teleop turtlebot3_teleop_key.launch.py
+# 终端2：运行遥控
+ros2 run turtlebot3_teleop teleop_keyboard
 ```
 
 ---
