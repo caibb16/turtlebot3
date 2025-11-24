@@ -315,7 +315,48 @@ ros2 run turtlebot3_teleop teleop_keyboard
 
 ---
 
-## 📡 ROS 2 话题和服务
+## 🔄 Gazebo中的机器人重置
+
+在Gazebo仿真中，经常需要重置机器人状态以进行新的实验。以下是几种重置方法：
+
+### 重置整个仿真（完全重置）
+```bash
+# 重置所有状态：位置、速度、时间等
+ros2 service call /reset_simulation std_srvs/Empty
+```
+
+### 只重置世界状态（保留时间）
+```bash
+# 重置物体状态，但保留仿真时间
+ros2 service call /reset_world std_srvs/Empty
+```
+
+### 停止机器人运动
+```bash
+# 发送零速度指令
+ros2 topic pub -1 /cmd_vel geometry_msgs/Twist '{linear: {x: 0.0}, angular: {z: 0.0}}'
+```
+
+### Python自动重置脚本
+```python
+import rclpy
+from std_srvs.srv import Empty
+
+rclpy.init()
+node = rclpy.create_node('reset_node')
+client = node.create_client(Empty, '/reset_simulation')
+
+while not client.wait_for_service(timeout_sec=1.0):
+    print('等待服务...')
+
+request = Empty.Request()
+future = client.call_async(request)
+rclpy.spin_until_future_complete(node, future)
+print('✓ 仿真已重置')
+rclpy.shutdown()
+```
+
+---
 
 ### 发布话题（Publish Topics）
 
