@@ -134,7 +134,7 @@ rviz2 -d $(ros2 pkg prefix turtlebot3_navigation2)/share/turtlebot3_navigation2/
 
 #### 3. 设置导航目标
 
-**方法A：点击"2D Nav Goal"工具**
+**点击"2D Nav Goal"工具**
 1. 在RViz工具栏找到 `2D Nav Goal` 按钮（红色箭头图标）
    - 通常位于工具栏中，工具栏显示: `2D Pose Estimate`, `2D Nav Goal`
    
